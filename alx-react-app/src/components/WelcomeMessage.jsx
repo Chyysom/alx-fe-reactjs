@@ -1,5 +1,5 @@
-// 1. Import statements go at the top of the file
-import React from 'react';                // Import React library
+import// 1. Import statements go at the top of the file
+React from 'react';                // Import React library
 import WelcomeMessage from './WelcomeMessage';  // Import your new component
 
 function WelcomeMessage() {
