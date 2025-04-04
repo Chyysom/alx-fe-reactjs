@@ -2,6 +2,7 @@
 import React from "react";
 import AddRecipeForm from "./pages/AddRecipeForm";  // Import the AddRecipeForm component
 import RecipeList from "./pages/RecipeList";        // Import the RecipeList component
+["import AddRecipeForm", "import RecipeList"]
 
 function App() {
     return (
