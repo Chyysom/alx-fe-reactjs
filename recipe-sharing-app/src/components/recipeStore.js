@@ -1,11 +1,14 @@
+
+
+
 import { create } from 'zustand';
 
 export const useRecipeStore = create((set) => ({
-    recipes: [], // Initial empty array
+    recipes:,
     searchTerm: '',
-    filteredRecipes: [],
-    favorites: [], // Array to store favorite recipe IDs
-    recommendations: [],
+    filteredRecipes:,
+    favorites:, // Array to store favorite recipe IDs
+    recommendations:,
 
     setSearchTerm: (term) => set({ searchTerm: term }),
 
@@ -22,6 +25,8 @@ export const useRecipeStore = create((set) => ({
             }),
         })),
 
+
+
     addFavorite: (recipeId) =>
         set((state) => ({
             favorites: [...state.favorites, recipeId],
@@ -32,34 +37,22 @@ export const useRecipeStore = create((set) => ({
             favorites: state.favorites.filter((id) => id !== recipeId),
         })),
 
+
+
     generateRecommendations: () =>
         set((state) => {
+            // **This is a mock implementation.**
+            // In a real app, you would use more sophisticated logic
+            // based on user preferences, favorite ingredients, etc.
             const recommended = state.recipes.filter(
                 (recipe) =>
-                    !state.favorites.includes(recipe.id) &&
-                    Math.random() > 0.5
+                    !state.favorites.includes(recipe.id) && // Don't recommend already favorited recipes
+                    Math.random() > 0.5 // Randomly select some recipes
             );
             return { recommendations: recommended };
-        }),
 
-    // New methods
-    addRecipe: (newRecipe) =>
-        set((state) => ({
-            recipes: [...state.recipes, newRecipe],
-        })),
-
-    updateRecipe: (updatedRecipe) =>
-        set((state) => ({
-            recipes: state.recipes.map((recipe) =>
-                recipe.id === updatedRecipe.id ? updatedRecipe : recipe
-            ),
-        })),
-
-    deleteRecipe: (recipeId) =>
-        set((state) => ({
-            recipes: state.recipes.filter((recipe) => recipe.id !== recipeId),
-        })),
-}));
+            // ... your existing actions for adding, deleting, updating recipes
+        }));
 
 
 
