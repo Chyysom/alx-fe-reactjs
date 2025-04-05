@@ -1,32 +1,36 @@
 import React from 'react';
 import { useQuery } from 'react-query';
-
-
-import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-const fetchPosts = async () => {
-  const { data } = await axios.get('https://jsonplaceholder.typicode.com/posts');
-  return data;
-};
-
 const PostsComponent = () => {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['posts'],
-    queryFn: fetchPosts,
+  const fetchPosts = async () => {
+    const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
+    return response.data;
+  };
+
+  const { isLoading, isError, data: posts, error, refetch } = useQuery('posts', fetchPosts, {
+    cacheTime: 1000 * 60 * 5, // 5 minutes
+    staleTime: 1000 * 30, // 30 seconds
+    refetchOnWindowFocus: false,
+    keepPreviousData: true,
   });
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (isLoading) return 'Loading...';
+
+  if (isError) return `An error has occurred: ${error.message}`;
 
   return (
     <div>
-      <h2>Posts</h2>
+      <h1>Posts</h1>
       <ul>
-        {data.slice(0, 5).map((post) => (
-          <li key={post.id}>{post.title}</li>
+        {posts && posts.map((post) => (
+          <li key={post.id}>
+            <h2>{post.title}</h2>
+            <p>{post.body}</p>
+          </li>
         ))}
       </ul>
+      <button onClick={refetch}>Refresh Posts</button>
     </div>
   );
 };
