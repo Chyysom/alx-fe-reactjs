@@ -4,7 +4,10 @@ import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
 
-// Sample components for routing
+// Pages / Components
+import AddRecipeForm from './components/AddRecipeForm';
+import RecipeDetail from './components/RecipeDetail';
+
 const Home = () => <h2>Home Page</h2>;
 const About = () => <h2>About Page</h2>;
 
@@ -26,6 +29,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+        <Route path="/add-recipe" element={<AddRecipeForm />} />
+        <Route path="/recipe/:id" element={<RecipeDetail />} />
       </Routes>
 
       <div className="card">
